@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+</head>
+
+<body>
+    <h2>Productos Full Stack</h2>
+    <form onsubmit="crear(event)">
+        <input id="nombre" type="text" placeholder="ingrese nombre producto" required><br><br>
+        <input id="precio" type="number" placeholder="ingrese precio producto" required> <br><br>
+        <button type="submit">Crear Producto</button><br><br>
+    </form>
+    <button type="button" onclick="leer()">Leer Productos</button><br><br>
+    <button type="button" onclick="actualizar('6646af621f9cccdca4561df4', 'Llanta', 200000)">Actualizar producto</button>
+    <button type="button" onclick="eliminar('6647f89502d4fdaeeb6f3e4d')">Eliminar Producto</button>
+    <table id="tabla"></table>
+    <script src="main.js"></script>
+</body>
+
+</html>
