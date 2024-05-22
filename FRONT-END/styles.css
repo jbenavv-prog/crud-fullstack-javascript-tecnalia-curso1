@@ -1,0 +1,4 @@
+.contenedor-principal {
+    display: flex;
+    justify-content: space-evenly;
+}
