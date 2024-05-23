@@ -23,12 +23,13 @@ function leer() {
       /////LOGICA PARA LEER DATOS AQUÍ!!
       console.log(respuesta.datos);
       const tabla = document.getElementById("tabla");
+      tabla.innerHTML = "";
       respuesta.datos.forEach((producto) => {
         tabla.innerHTML += `<tr>
                                 <td> ${producto.nombre}</td>
                                 <td> ${ producto.precio }</td>
                                 <td>
-                                      <button type="button" onclick="editar()">Editar</button>    
+                                      <button type="button" onclick="editar('${producto._id}', '${producto.nombre}', ${producto.precio})">Editar</button>    
                                       <button type="button">Eliminar</button>    
                                 </td>
                             </tr>`;
@@ -37,9 +38,9 @@ function leer() {
     .catch((err) => alert(err));
 }
 
-function editar(){
+function editar(id, nombre, precio){
   ////RELLENAR FORMULARIO//////////////
-  alert("RELLENAR formulario para editar")
+  alert(id + " "+ nombre + " "+ precio);
 }
 
 // function actualizar(idProducto, nombre, precio) {
