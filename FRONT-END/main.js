@@ -1,16 +1,25 @@
-function crear(event) {
+let IDACTUAL = "";
+
+function enviar(event) {
   event.preventDefault();
   const nombre = document.getElementById("nombre").value;
   const precio = document.getElementById("precio").value;
 
+
+//////VALIDAR SI ES UNA CREACIÓN  O UNA ACTUALIZACIÓN /////
+
+if(IDACTUAL == "") { // CREAR
   fetch("http://localhost:3000/api/producto", {
     method: "post",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ nombre, precio }),
   })
     .then((respuesta) => respuesta.json())
-    .then((datos) => alert("ok", datos))
+    .then((datos) => alert("Producto Creado", datos))
     .catch((error) => alert("Error", error)); // /* Error handling */
+} else if (IDACTUAL != ""){ // ACTUALIZAR
+  actualizar(IDACTUAL, nombre, precio);
+}
 }
 
 function leer() {
@@ -20,7 +29,7 @@ function leer() {
   })
     .then((respuesta) => respuesta.json())
     .then((respuesta) => {
-      /////LOGICA PARA LEER DATOS AQUÍ!!
+      /////LÓGICA PARA LEER DATOS AQUÍ!!
       console.log(respuesta.datos);
       const tabla = document.getElementById("tabla");
       tabla.innerHTML = "";
@@ -40,24 +49,33 @@ function leer() {
 
 function editar(id, nombre, precio){
   ////RELLENAR FORMULARIO//////////////
-  alert(id + " "+ nombre + " "+ precio);
+  // alert(id + " "+ nombre + " "+ precio);
+  IDACTUAL = id;
+  document.getElementById("nombre").value = nombre;
+  document.getElementById("precio").value = precio;
 }
 
-// function actualizar(idProducto, nombre, precio) {
-//   console.log(`http://localhost:3000/api/producto/${idProducto}`);
+function limpiar(){
+  IDACTUAL = "";
+  document.getElementById("nombre").value = "";
+  document.getElementById("precio").value = "";
+}
 
-//   fetch(`http://localhost:3000/api/producto/${idProducto}`, {
-//     method: "put",
-//     headers: { "Content-Type": "application/json" },
-//     body: JSON.stringify({nombre, precio})
-//   })
-//     .then((respuesta) => respuesta.json())
-//     .then((respuesta) => {
-//       /////////////////LÓGICA POSTERIOR A ACTUALIZAR DATO //////////////////////
-//     alert("Producto Actualizado");
-//     })
-//     .catch((error) => alert("Ha ocurrido un error"));
-// }
+function actualizar(idProducto, nombre, precio) {
+  console.log(`http://localhost:3000/api/producto/${idProducto}`);
+
+  fetch(`http://localhost:3000/api/producto/${idProducto}`, {
+    method: "put",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({nombre, precio})
+  })
+    .then((respuesta) => respuesta.json())
+    .then((respuesta) => {
+      /////////////////LÓGICA POSTERIOR A ACTUALIZAR DATO //////////////////////
+    alert("Producto Actualizado");
+    })
+    .catch((error) => alert("Ha ocurrido un error"));
+}
 
 // function eliminar(idProducto){
 //   fetch(`http://localhost:3000/api/producto/${idProducto}`, {

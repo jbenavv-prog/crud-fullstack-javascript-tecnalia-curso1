@@ -25,10 +25,11 @@
             </table>
         </section>
         <section>
-            <form onsubmit="crear(event)">
+            <form onsubmit="enviar(event)">
                 <input id="nombre" type="text" placeholder="ingrese nombre producto" required><br><br>
                 <input id="precio" type="number" placeholder="ingrese precio producto" required> <br><br>
-                <button type="submit">Crear Producto</button><br><br>
+                <button type="submit">Enviar</button><br><br>
+                <button type="button" onclick="limpiar()">Limpiar</button><br><br>
             </form>
             <button type="button" onclick="leer()">Leer Productos</button><br><br>
             <!-- <button type="button" onclick="actualizar('6646af621f9cccdca4561df4', 'Llanta', 200000)">Actualizar
