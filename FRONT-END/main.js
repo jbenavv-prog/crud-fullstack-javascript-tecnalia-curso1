@@ -1,3 +1,5 @@
+leer();
+
 let IDACTUAL = "";
 
 function enviar(event) {
@@ -15,7 +17,10 @@ if(IDACTUAL == "") { // CREAR
     body: JSON.stringify({ nombre, precio }),
   })
     .then((respuesta) => respuesta.json())
-    .then((datos) => alert("Producto Creado", datos))
+    .then((datos) => {
+      alert("Producto Creado", datos)
+      leer();
+    })
     .catch((error) => alert("Error", error)); // /* Error handling */
 } else if (IDACTUAL != ""){ // ACTUALIZAR
   actualizar(IDACTUAL, nombre, precio);
@@ -39,7 +44,7 @@ function leer() {
                                 <td> ${ producto.precio }</td>
                                 <td>
                                       <button type="button" onclick="editar('${producto._id}', '${producto.nombre}', ${producto.precio})">Editar</button>    
-                                      <button type="button">Eliminar</button>    
+                                      <button type="button" onclick="eliminar('${producto._id}')">Eliminar</button>    
                                 </td>
                             </tr>`;
         });
@@ -73,19 +78,28 @@ function actualizar(idProducto, nombre, precio) {
     .then((respuesta) => {
       /////////////////LÓGICA POSTERIOR A ACTUALIZAR DATO //////////////////////
     alert("Producto Actualizado");
+    leer();
     })
     .catch((error) => alert("Ha ocurrido un error"));
 }
 
-// function eliminar(idProducto){
-//   fetch(`http://localhost:3000/api/producto/${idProducto}`, {
-//     method: "delete",
-//     headers: {"Content-Type": "application/json"}
-//   })
-//   .then(respuesta=>respuesta.json())
-//   .then(respuesta=> {
-//     //////LÓGICA POSTERIOR A UNA ELIMINACIÓN////////7
-//     alert("Producto Eliminado");
-//   })
-//   .catch((error)=> alert("Ha ocurrido un error", error));
-// }
+function eliminar(idProducto){
+  const eliminar = confirm("Confirmar eliminación permanente");
+
+  if(!eliminar) {
+    return;
+  }
+
+  fetch(`http://localhost:3000/api/producto/${idProducto}`, {
+    method: "delete",
+    headers: {"Content-Type": "application/json"}
+  })
+  .then(respuesta=>respuesta.json())
+  .then(respuesta=> {
+    //////LÓGICA POSTERIOR A UNA ELIMINACIÓN////////7
+
+    alert("Producto Eliminado");
+    leer();
+  })
+  .catch((error)=> alert("Ha ocurrido un error", error));
+}
